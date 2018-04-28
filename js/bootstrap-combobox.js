@@ -74,7 +74,7 @@
         , selectedValue = '';
       this.$source.find('option').each(function() {
         var option = $(this);
-        if (option.val() === '') {
+        if (option.val() === '' || option.val() === 'null') {
           that.options.placeholder = option.text();
           return;
         }
@@ -106,6 +106,7 @@
     this.$element.attr('title', this.$source.attr('title'))
     this.$element.attr('class', this.$source.attr('class'))
     this.$element.attr('tabindex', this.$source.attr('tabindex'))
+    this.$element.attr('id', this.$source.attr('id')+'_sel')
     this.$source.removeAttr('tabindex')
     if (this.$source.attr('disabled')!==undefined)
       this.disable();
@@ -182,7 +183,7 @@
     }
 
   , matcher: function (item) {
-      return ~item.toLowerCase().indexOf(this.query.toLowerCase());
+      return item.toLowerCase().indexOf(this.query.toLowerCase())>=0;
     }
 
   , sorter: function (items) {
@@ -390,9 +391,13 @@
       this.focused = false;
       var val = this.$element.val();
       if (!this.selected && val !== '' ) {
-        this.$element.val('');
-        this.$source.val('').trigger('change');
-        this.$target.val('').trigger('change');
+    	 if(this.options.freeInput) {
+    		 this.$element.val(val);
+    		 this.$target.val(val).trigger('change');
+    	 } else {
+            this.$element.val('');
+            this.$target.val('').trigger('change');
+        }
       }
       if (!this.mousedover && this.shown) {setTimeout(function () { that.hide(); }, 200);}
     }
@@ -431,6 +436,7 @@
     bsVersion: '3'
   , menu: '<ul class="typeahead typeahead-long dropdown-menu"></ul>'
   , item: '<li><a href="#"></a></li>'
+  , freeInput : false
   };
 
   $.fn.combobox.Constructor = Combobox;

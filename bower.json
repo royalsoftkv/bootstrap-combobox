@@ -1,0 +1,18 @@
+{
+  "name": "bootstrap-combobox",
+  "version": "1.1.6-sf",
+  "homepage": "https://github.com/royalsoftkv/bootstrap-combobox",
+  "description": "A bootstrap styled combobox with typeahead searching",
+  "main": "",
+  "authors": [
+    "Daniel Farrell <danielfarrell76@gmail.com>"
+  ],
+  "license": "Apache 2.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
